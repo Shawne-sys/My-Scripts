@@ -1,0 +1,16 @@
+# Define variables
+$DistributionList = "BUKFinanceStaff@banijayuk.com"  # Specify your distribution list
+$UsersToAdd = @(
+    
+)
+
+
+# Add each user to the distribution list
+foreach ($User in $UsersToAdd) {
+    try {
+        Add-DistributionGroupMember -Identity $DistributionList -Member $User -ErrorAction Stop
+        Write-Output "Successfully added $User to $DistributionList"
+    } catch {
+        Write-Error ("Failed to add {0} to {1}: {2}" -f $User, $DistributionList, $_.Exception.Message)
+    }
+}
